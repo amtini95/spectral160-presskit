@@ -2,14 +2,17 @@ name: spectral160-presskit
 
 services:
   web:
-    build: .
-    image: spectral160-presskit:latest
+    image: caddy:2-alpine
     container_name: spectral160-presskit
     restart: unless-stopped
     ports:
       - "8080:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./spectral160-presskit:/srv:ro
+      - caddy_data:/data
+      - caddy_config:/config
     labels:
-      com.docker.compose.project: spectral160-presskit
       com.spectral160.description: Spectral160 press kit static site
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/"]
@@ -22,3 +25,7 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
+volumes:
+  caddy_data:
+  caddy_config:

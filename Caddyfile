@@ -1,0 +1,15 @@
+:80 {
+	root * /srv
+	encode zstd gzip
+	file_server
+
+	@media {
+		path *.jpg *.jpeg *.png *.gif *.webp *.svg *.ico *.mp4 *.webm
+	}
+	header @media Cache-Control "public, max-age=86400"
+
+	log {
+		output stdout
+		format console
+	}
+}

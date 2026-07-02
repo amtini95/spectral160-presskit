@@ -3,7 +3,7 @@
 set -euo pipefail
 
 REPO_DIR="${HOME}/macmini-vps/docker/spectral160-presskit"
-DOCKER="/Applications/Docker.app/Contents/Resources/bin/docker"
+DOCKER="${REPO_DIR}/deploy/docker-cli.sh"
 LOG="${HOME}/Library/Logs/spectral160-deploy.log"
 BRANCH="${SPECTRAL160_BRANCH:-main}"
 
@@ -25,6 +25,6 @@ if [[ "${LOCAL}" == "${REMOTE}" ]]; then
 fi
 
 git pull --ff-only origin "${BRANCH}"
-"${DOCKER}" compose up -d --build --remove-orphans
+"${DOCKER}" compose up -d --remove-orphans
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') deployed ${REMOTE}" >> "${LOG}"
