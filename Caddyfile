@@ -1,4 +1,9 @@
-:80 {
+{
+	email spectral160techno@gmail.com
+}
+
+# Public site with automatic HTTPS (Let's Encrypt via DuckDNS domain).
+spectral160.duckdns.org {
 	root * /srv
 	encode zstd gzip
 	file_server
@@ -12,4 +17,11 @@
 		output stdout
 		format console
 	}
+}
+
+# Local/LAN plain-HTTP access + container healthcheck target.
+http://localhost {
+	root * /srv
+	encode zstd gzip
+	file_server
 }

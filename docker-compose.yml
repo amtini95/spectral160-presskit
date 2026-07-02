@@ -6,6 +6,8 @@ services:
     container_name: spectral160-presskit
     restart: unless-stopped
     ports:
+      - "80:80"
+      - "443:443"
       - "8080:80"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
@@ -15,7 +17,7 @@ services:
     labels:
       com.spectral160.description: Spectral160 press kit static site
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/"]
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/"]
       interval: 30s
       timeout: 5s
       retries: 3
